@@ -37,4 +37,10 @@ public class MainController {
     Optional<Cat> getCat(@RequestParam Long catId) {
         return catRepository.findById(catId);
     }
+
+    @PostMapping(path = "/delete")
+    public @ResponseBody String deleteCat(@RequestParam Long catId) {
+            catRepository.deleteById(catId);
+            return "Delete";
+    }
 }
