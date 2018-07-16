@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller()
 @RequestMapping(path="/catsApi")
 public class MainController {
@@ -29,5 +31,11 @@ public class MainController {
     public @ResponseBody Iterable<Cat> getAllCats() {
         // This returns a JSON or XML with the users
         return catRepository.findAll();
+    }
+
+    @GetMapping(path="/getCat")
+    public @ResponseBody
+    Optional<Cat> getCat(@RequestParam Long catId) {
+        return catRepository.findById(catId);
     }
 }
