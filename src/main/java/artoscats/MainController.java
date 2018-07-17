@@ -38,9 +38,29 @@ public class MainController {
         return catRepository.findById(catId);
     }
 
-    @PostMapping(path = "/delete")
+    @DeleteMapping(path = "/delete")
     public @ResponseBody String deleteCat(@RequestParam Long catId) {
+
+        if(catRepository.existsById(catId)) {
             catRepository.deleteById(catId);
             return "Delete";
+        } else {
+            return "Not found";
+        }
+    }
+
+    @PutMapping(path = "/update")
+    public @ResponseBody String updateCat(@RequestParam Long catId, @RequestParam String name,
+                                                 @RequestParam Integer age) {
+        try {
+            Cat cat = catRepository.findById(catId).get();
+            cat.setName(name);
+            cat.setAge(age);
+            catRepository.save(cat);
+        }
+        catch (Exception ex) {
+            return "Error updating the cat: " + ex.toString();
+        }
+        return "CAt successfully updated!";
     }
 }
