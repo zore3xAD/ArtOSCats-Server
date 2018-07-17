@@ -61,6 +61,6 @@ public class MainController {
         catch (Exception ex) {
             return "Error updating the cat: " + ex.toString();
         }
-        return "CAt successfully updated!";
+        return "Cat successfully updated!";
     }
 }
